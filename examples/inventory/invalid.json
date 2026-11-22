@@ -1,0 +1,14 @@
+{
+  "http": {
+    "path": "/reservations",
+    "method": "post",
+    "mediaType": "application/json",
+    "status": 400
+  },
+  "body": {
+    "status": "invalid",
+    "reservationId": "",
+    "remaining": 0,
+    "reason": "Request key and SKU are required."
+  }
+}

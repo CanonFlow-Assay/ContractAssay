@@ -1,0 +1,14 @@
+{
+  "http": {
+    "path": "/reservations",
+    "method": "post",
+    "mediaType": "application/json",
+    "status": 200
+  },
+  "body": {
+    "status": "replayed",
+    "reservationId": "contract-fixture",
+    "remaining": 98,
+    "reason": ""
+  }
+}

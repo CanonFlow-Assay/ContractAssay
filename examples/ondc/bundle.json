@@ -1,0 +1,19 @@
+{
+  "source_lock": {
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "protocol": "ONDC",
+    "protocol_version": "1.2.0"
+  },
+  "traces": [
+    {
+      "context": {
+        "domain": "fixture",
+        "action": "search",
+        "transaction_id": "sample",
+        "message_id": "fixture",
+        "timestamp": "2026-11-22T08:00:00Z"
+      },
+      "message": {}
+    }
+  ]
+}

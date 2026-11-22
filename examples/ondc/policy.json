@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "profile": "directional-json",
+  "files": {
+    "base": "base.json",
+    "candidate": "candidate.json",
+    "bundle": "bundle.json",
+    "rejected": "rejected.json"
+  },
+  "expects": {
+    "format": "json-schema",
+    "contracts": [
+      {
+        "id": "ondc-bundle",
+        "direction": "consumer",
+        "selector": null,
+        "accepted": [
+          "bundle"
+        ],
+        "rejected": [
+          "rejected"
+        ]
+      }
+    ]
+  }
+}

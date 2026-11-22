@@ -1,0 +1,12 @@
+{
+  "assay": "ContractAssay",
+  "profile": "directional-json",
+  "rules": [
+    {"id": "CT001", "predicate": "Compile the selected schemas with pinned jsonschema and a closed reference registry."},
+    {"id": "CT002", "predicate": "The declared operation, status and JSON media schema exist on both sides."},
+    {"id": "CT003", "predicate": "Every positive fixture is accepted by its source-side schema."},
+    {"id": "CT004", "predicate": "Every source-side fixture is accepted by the relevant target-side schema."},
+    {"id": "CT005", "predicate": "Declared negative fixtures are rejected by both schemas."},
+    {"id": "CT006", "predicate": "An HTTP fixture is bound to the selected method, path, status and media type."}
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Inventory reservation fixture",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/reservations": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reservation committed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Committed"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Reservation replayed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Replayed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid reservation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Request": {
+        "type": "object",
+        "required": [
+          "requestId",
+          "sku",
+          "quantity"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sku": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          }
+        }
+      },
+      "Committed": {
+        "type": "object",
+        "required": [
+          "status",
+          "reservationId",
+          "remaining",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "reserved"
+            ]
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "remaining": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "Replayed": {
+        "type": "object",
+        "required": [
+          "status",
+          "reservationId",
+          "remaining",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "replayed"
+            ]
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "remaining": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "Invalid": {
+        "type": "object",
+        "required": [
+          "status",
+          "reservationId",
+          "remaining",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "invalid"
+            ]
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "remaining": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

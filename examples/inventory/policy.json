@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "profile": "directional-json",
+  "files": {
+    "producer": "origin.json",
+    "base": "base.json",
+    "candidate": "candidate.json",
+    "request": "request.json",
+    "request-rejected": "request-rejected.json",
+    "committed": "committed.json",
+    "committed-rejected": "committed-rejected.json",
+    "replayed": "replayed.json",
+    "replayed-rejected": "replayed-rejected.json",
+    "invalid": "invalid.json",
+    "invalid-rejected": "invalid-rejected.json"
+  },
+  "expects": {
+    "format": "openapi-3.1",
+    "contracts": [
+      {
+        "id": "request",
+        "selector": {
+          "path": "/reservations",
+          "method": "post",
+          "mediaType": "application/json",
+          "status": null
+        },
+        "direction": "request",
+        "accepted": [
+          "request"
+        ],
+        "rejected": [
+          "request-rejected"
+        ]
+      },
+      {
+        "id": "committed",
+        "selector": {
+          "path": "/reservations",
+          "method": "post",
+          "mediaType": "application/json",
+          "status": 201
+        },
+        "direction": "response",
+        "accepted": [
+          "committed"
+        ],
+        "rejected": [
+          "committed-rejected"
+        ]
+      },
+      {
+        "id": "replayed",
+        "selector": {
+          "path": "/reservations",
+          "method": "post",
+          "mediaType": "application/json",
+          "status": 200
+        },
+        "direction": "response",
+        "accepted": [
+          "replayed"
+        ],
+        "rejected": [
+          "replayed-rejected"
+        ]
+      },
+      {
+        "id": "invalid",
+        "selector": {
+          "path": "/reservations",
+          "method": "post",
+          "mediaType": "application/json",
+          "status": 400
+        },
+        "direction": "response",
+        "accepted": [
+          "invalid"
+        ],
+        "rejected": [
+          "invalid-rejected"
+        ]
+      }
+    ]
+  }
+}

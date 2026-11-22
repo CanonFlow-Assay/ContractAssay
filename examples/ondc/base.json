@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ONDC Evidence Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_lock", "traces"],
+  "properties": {
+    "source_lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["digest", "protocol", "protocol_version"],
+      "properties": {
+        "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "protocol": { "type": "string", "minLength": 1 },
+        "protocol_version": { "type": "string", "minLength": 1 }
+      }
+    },
+    "traces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["context", "message"],
+        "properties": {
+          "context": {
+            "type": "object",
+            "required": ["domain", "action", "transaction_id", "message_id", "timestamp"],
+            "properties": {
+              "domain": { "type": "string" },
+              "action": {
+                "enum": ["search", "on_search", "select", "on_select", "init", "on_init", "confirm", "on_confirm"]
+              },
+              "transaction_id": { "type": "string" },
+              "message_id": { "type": "string" },
+              "timestamp": { "type": "string" }
+            }
+          },
+          "message": { "type": "object" }
+        }
+      }
+    },
+    "declared_transport": {
+      "description": "Self-declared observation only. This is not trusted transport-signature proof and cannot establish conformance.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signature_verified"],
+      "properties": {
+        "signature_verified": { "type": "boolean" },
+        "key_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "declared_replay": {
+      "description": "Self-declared replay observation only. A trusted replay observer is required to establish conformance.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observations"],
+      "properties": {
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["message_id", "duplicate", "idempotent"],
+            "properties": {
+              "message_id": { "type": "string", "minLength": 1 },
+              "duplicate": { "type": "boolean" },
+              "idempotent": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "declared_registry": {
+      "description": "Self-declared registry observation only. A signed registry document verified against a trusted key is required to establish conformance.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signature_verified", "status", "snapshot_at"],
+      "properties": {
+        "signature_verified": { "type": "boolean" },
+        "status": { "type": "string", "minLength": 1 },
+        "snapshot_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

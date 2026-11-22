@@ -1,0 +1,9 @@
+{
+  "http": {
+    "path": "/reservations",
+    "method": "post",
+    "mediaType": "application/json",
+    "status": null
+  },
+  "body": {}
+}
