@@ -25,3 +25,9 @@ validates the selected JSON operations and referenced schemas.
 Compatibility evidence is specific to the supplied specimens.
 See [qualification and wire capture](docs/native.md) and the
 [evidence contract](CONTRACT.md). Apache-2.0.
+
+## Assay estate checks
+
+The estate coordinator records checkout identity and executes declared
+repository checks. The worktree audit includes invocation and evidence limits.
+[Estate audit and replay](docs/active-git-worktree-summary.md#replaying-the-repaired-estate-checks)

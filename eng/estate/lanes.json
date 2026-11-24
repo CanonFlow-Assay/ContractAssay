@@ -1,0 +1,465 @@
+{
+  "BashAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "CSharpAssay": [
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "CSharpAssay.slnx",
+        "--locked-mode",
+        "-m:2"
+      ],
+      "scope": "Locked restore"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "CSharpAssay.slnx",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:2"
+      ],
+      "scope": "Release build"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "test",
+        "CSharpAssay.slnx",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--max-parallel-test-modules",
+        "1"
+      ],
+      "scope": "Source test suite",
+      "testCountPattern": "^  total: [1-9][0-9]*$"
+    }
+  ],
+  "CSharpAssay.Playground": [
+    {
+      "argv": [
+        "bash",
+        "eng/run-all-samples.sh"
+      ],
+      "scope": "Authored samples and registered tests",
+      "timeout": 480
+    }
+  ],
+  "ContractAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "DartAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--output",
+        "{output}/flutter"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Pinned Flutter M1 reference application",
+      "timeout": 210
+    }
+  ],
+  "DhallAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "DuckDBAssay": [
+    {
+      "argv": [
+        "{python}",
+        "eng/qualify-profile.py",
+        "--out",
+        "{output}/parquet"
+      ],
+      "receipt": {
+        "file": "parquet/receipt.json",
+        "format": "data-assay"
+      },
+      "scope": "Pinned native profile and independent packaged consumer",
+      "timeout": 360
+    },
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--policy",
+        "{output}/parquet/policy.json",
+        "--snapshot",
+        "{output}/parquet/snapshot.json"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "FSharpAssay": [
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "FsAssay.Stable.slnx",
+        "--locked-mode",
+        "-m:2"
+      ],
+      "scope": "Locked restore"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "FsAssay.Stable.slnx",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:2"
+      ],
+      "scope": "Release build"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "FsAssay.Runner/bin/Release/net11.0/FsAssay.Runner.dll",
+        "verify",
+        "--out-json",
+        "{output}/fsassay.json",
+        "--test-artifacts",
+        "{output}/trx",
+        "FsAssay.Stable.slnx"
+      ],
+      "receipt": {
+        "file": "fsassay.json",
+        "format": "fsassay"
+      },
+      "scope": "Stable solution with executed required tests"
+    }
+  ],
+  "FSharpAssay.Playground": [
+    {
+      "argv": [
+        "dotnet",
+        "run",
+        "--project",
+        "eng/Playground.Tooling",
+        "-c",
+        "Release",
+        "--",
+        "qualify",
+        "--output",
+        "{output}/qualification"
+      ],
+      "receipt": {
+        "file": "qualification/verify/receipt.json",
+        "format": "fsassay"
+      },
+      "scope": "Pinned producer, PostgreSQL fixture and active solution",
+      "timeout": 540
+    }
+  ],
+  "GitHubActionsAssay": [
+    {
+      "argumentFromEnvironment": {
+        "ASSAY_GITHUB_ACTIONS_POLICY": "--policy"
+      },
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "HTML5Assay": [
+    {
+      "argv": [
+        "node",
+        "--test",
+        "playground/investigation.test.mjs"
+      ],
+      "scope": "Offline playground preview tests",
+      "testCountPattern": "^(?:#|\u2139) tests [1-9][0-9]*$"
+    }
+  ],
+  "JavaScriptAssay": [
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "scope": "Pinned Node authoring runtime",
+      "testCountPattern": "^v24\\.21\\.0$"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "scope": "Locked dependency install"
+    },
+    {
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "scope": "Source test suite",
+      "testCountPattern": "^(?:#|\u2139) tests [1-9][0-9]*$"
+    }
+  ],
+  "KotlinAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--output",
+        "{output}/expenseguard"
+      ],
+      "receipt": {
+        "file": "expenseguard/run.json",
+        "format": "expenseguard"
+      },
+      "scope": "ExpenseGuard baseline and selected mutation cases"
+    }
+  ],
+  "OpenSearchAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "OracleAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "PostgresAssay": [
+    {
+      "argv": [
+        "{python}",
+        "eng/qualify-profile.py",
+        "--out",
+        "{output}/wallet"
+      ],
+      "receipt": {
+        "file": "wallet/receipt.json",
+        "format": "data-assay"
+      },
+      "scope": "Pinned native profile and independent packaged consumer",
+      "timeout": 360
+    },
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--policy",
+        "{output}/wallet/policy.json",
+        "--snapshot",
+        "{output}/wallet/snapshot.json"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "PowerShellAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py"
+      ],
+      "receipt": {
+        "format": "playground"
+      },
+      "scope": "Bound sample verification, example scan control and source suite"
+    }
+  ],
+  "PythonAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--output",
+        "{output}/expenseguard"
+      ],
+      "receipt": {
+        "file": "expenseguard/run.json",
+        "format": "expenseguard"
+      },
+      "scope": "ExpenseGuard baseline and selected mutation cases"
+    }
+  ],
+  "RustAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--output",
+        "{output}/expenseguard"
+      ],
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.98.1"
+      },
+      "receipt": {
+        "file": "expenseguard/run.json",
+        "format": "expenseguard"
+      },
+      "scope": "ExpenseGuard baseline and selected mutation cases"
+    }
+  ],
+  "STEAssay": [
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "scope": "Pinned Node authoring runtime",
+      "testCountPattern": "^v20\\.20\\.2$"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "scope": "Locked dependency install"
+    },
+    {
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "scope": "Source test suite",
+      "testCountPattern": "^(?:#|\u2139) tests [1-9][0-9]*$"
+    }
+  ],
+  "SecurityAssay": [
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "SecurityAssay.slnx",
+        "--locked-mode",
+        "-m:2"
+      ],
+      "scope": "Locked restore"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "SecurityAssay.slnx",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:2"
+      ],
+      "scope": "Release build"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "test",
+        "SecurityAssay.slnx",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--max-parallel-test-modules",
+        "1"
+      ],
+      "scope": "Source test suite",
+      "testCountPattern": "^  total: [1-9][0-9]*$"
+    }
+  ],
+  "SwiftAssay": [
+    {
+      "argv": [
+        "{python}",
+        "playground/run.py",
+        "--output",
+        "{output}/expenseguard"
+      ],
+      "receipt": {
+        "file": "expenseguard/run.json",
+        "format": "expenseguard"
+      },
+      "scope": "ExpenseGuard baseline and selected mutation cases"
+    }
+  ],
+  "TypeScriptAssay": [
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "scope": "Locked dependency install"
+    },
+    {
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "scope": "Source test suite",
+      "testCountPattern": "^(?:#|\u2139) tests [1-9][0-9]*$"
+    }
+  ]
+}
